@@ -1,0 +1,90 @@
+
+
+<!-- -----------------------This is to show the complain ------------------------------------------------>
+
+
+<table class="table table-striped" >
+  <thead>
+    <tr>
+      <th scope="col" (click)="sort('id')">#<i class="fa fa-sort"></i></th>
+      <th scope="col"> Subject </th>
+      <th scope="col"> Posted Date <i class= "fa fa-sort"></i></th>
+      <th scope="col"> Status </th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let complain of complainList | orderBy:key:reverse|  paginate: { itemsPerPage: 5 , currentPage: p }">
+      
+      <td>{{complain.id}}</td>
+      <td>{{complain.issueSubject}}</td>
+      <td>{{complain.dateofComplain}}</td>
+      <td>{{complain.status}}</td>
+      <td><Button class="btn btn-primary" (click)="findComplainById(complain.id)" data-toggle="modal" data-target="#complainView"><i class="fas fa-eye"></i>
+      </Button>&nbsp;&nbsp;
+       <Button class="btn btn-danger"
+        mwlConfirmationPopover
+        [popoverTitle]="popoverTitle"
+        [popoverMessage]="popoverMessage"
+        placement="left"
+        (confirm)="deleteComplain(complain.id)"
+        (cancel)="cancelClicked = true"><i class="fa fa-trash"></i></Button> </td>
+    
+    </tr>
+      </tbody>
+</table>
+ <!--Including the pagination control.-->
+ <div class="text-right">
+  <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+</div>
+
+
+
+<!----------------------------- View Modal --------------------------------------------------->
+<div class="modal fade" id="complainView" tabindex="-1" role="dialog" aria-labelledby="complainView" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Complain</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     
+        <table class="table">
+          <tr>
+             <th>Complained Date : <input type="text" style="margin-left: 35px; font-size: medium;" value="{{dcomplain}}"
+              readonly></th> 
+              </tr>
+              <tr>
+<th>Complain By:  <input type="text" style="margin-left: 65px; font-size: medium;" value="{{ucomplain}}"
+  readonly></th>
+</tr>
+<tr>
+<th>Subject:   
+  <input type="text" style="margin-left: 90px; font-size: medium;" value="{{scomplain}}"
+  readonly> </th>
+          </tr>
+          <tr>
+           <td style="height:300px;">{{mcomplain}}</td>
+          </tr> 
+          </table>
+      </div>
+      <div>
+        <label for="statusofComplain" style="font-size: medium;"> <b>Marked complain as:</b></label>
+      
+        <select name="status" (change)="complainHandler($event,cid)"
+         id="statusofComplain" style="margin-left:10px; height: 25px;">
+          <option value="pending">Pending</option>
+          <option value="Rejected">Rejected</option>
+          <option value="solved">Solved</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="sendComplainResponse(cid)" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<!---------------------------------------This is for Doctor---------------------------------------------------------------->
+<input type="text" class="form-Control" name="searchBox" [(ngModel)]="searchResult" (ngModelChange)="search()" placeholder="Enter to search">
+<table class="table table-striped" >
+    <thead>
+      <tr>
+        <th scope="col" (click)="sort('id')">#<i class="fa fa-sort"></i></th>
+       
+        <th scope="col"> Full Name </th>
+        <th scope="col"> Gender</th>
+        <th scope="col"> Contact Number </th>
+        <th scope="col">Requested Appointment Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of userData | orderBy:key:reverse|  paginate: { itemsPerPage: 8 , currentPage: p }">
+        
+        <td>{{patient.id}}</td>
+        <td>{{patient.fullname}}</td>
+        <td>{{patient.gender}}</td>
+        <td>{{patient.contact}}</td>
+        <td>{{patient.appointedDate}}</td>
+       
+        <td><Button class="btn btn-primary"
+          mwlConfirmationPopover
+          [popoverTitle]="popoverTitle"
+          [popoverMessage]="popoverMessage"
+          placement="left"
+          (confirm)=" appointPatient(patient.id)"
+          (cancel)="cancelClicked = true"><i class="fas fa-check"></i>
+        </Button>&nbsp;
+        <Button class="btn btn-danger" 
+          mwlConfirmationPopover
+          [popoverTitle]="popoverTitle"
+          [popoverMessage]="popoverMessage"
+          placement="left"
+          (confirm)="cancleAppointPatient(patient.id)"
+          (cancel)="cancelClicked = true"><i class="fa fa-times" aria-hidden="true"></i></Button> </td>
+      </tr>
+        </tbody>
+  </table>
+
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--Including the pagination control.-->
+   <div class="text-right">
+    <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+  </div>
+

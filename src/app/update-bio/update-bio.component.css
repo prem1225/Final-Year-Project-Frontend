@@ -1,0 +1,16 @@
+#addProfilediv{
+
+        height: 180px;
+        margin-top: 10px;
+        /* margin-bottom:20px; */
+        width: 650px;
+        /* margin-left: 1; */
+        background-color: rgba(23, 103, 139, 0.5) !important;
+        padding-top: 10px;
+        }
+        
+        #background_image{
+            height: 650px;
+            width: 1000px;
+            margin-left: 250px;
+        }

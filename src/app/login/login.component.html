@@ -1,0 +1,70 @@
+<div id="background_image" style="background-image:url(../assets/bg-hospital.jpg) ">
+	<div class="d-flex justify-content-center h-100" *ngIf="verified">
+		<div class="card">
+			<div class="card-body">
+				<!-- <form> -->
+
+				<form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input class="form-control" type="text" name="username" [(ngModel)]="form.username" required
+							#username="ngModel" placeholder="username"><br>
+
+					</div>
+					<div class="alert alert-danger" role="alert" *ngIf="f.submitted && username?.invalid">
+						Username is required!
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input class="form-control" name="password" [(ngModel)]="form.password" required
+							#password="ngModel" type="password" placeholder="password" minlength="4"><br>
+
+					</div>
+					<div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+						<div *ngIf="password.errors?.required">Password is required</div>
+						<div *ngIf="password.errors?.minlength">
+							Password must be at least 4 characters
+						</div>
+					</div>
+					<div class="form-group">
+
+						<input class="btn float-right login_btn" type="submit" name="login" value="login"
+							>
+					</div>
+					<div class="form-group">
+						<div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+							Login failed: {{ errorMessage }}
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				
+				<div class="d-flex justify-content-center">
+					<a routerLink="/forgetPassword">Forgot your password?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- </div> -->
+
+</div>
+<div class="d-flex justify-content-center h-100" *ngIf="!verified">
+	<div class="card" style="align-self: center;">
+		<div class="card-body">
+			<input type="text" name="username" [(ngModel)]="username" placeholder="Enter username">
+			<input type="text" name="OTPnum" [(ngModel)]="OTPnum" placeholder="Enter OTP number from your emamil ">
+			<div class="form-group">
+				<li id="li"><input class="btn float-right login_btn" type="submit" name="Cancel" value="Cancel"
+						(click)="getBackToLogin()"></li>
+				<li id="li"> <input class="btn float-right login_btn" type="submit" name="Send" value="Send"
+						(click)="VerifyEmail()"></li>
+			</div>
+		</div>
+
+	</div>
+</div>

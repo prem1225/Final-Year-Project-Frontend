@@ -1,0 +1,47 @@
+
+
+     <div id="background_image" style="background-image:url(../assets/bg-hospital.jpg)" [hidden]="isOtpGenerated">
+      <div class="d-flex justify-content-center h-100" id="changePassworddiv"  >
+      <article class="card-body mx-auto" style="max-width: 400px;">
+          <h4 class="card-title mt-3 text-center"><B>Update Mail Address</B></h4>
+          <form>
+                  
+          <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input class="form-control" placeholder="Enter Old email Address" name="oldEmail" [(ngModel)]="oldEmail"> 
+          </div> 
+          <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input class="form-control" placeholder="Enter new Mail Address"  name="newEmail"  [(ngModel)]="newEmail" >
+          </div>                                       
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block" (click)="changeEmail()">Change </button>
+          </div>       
+                                                                         
+      </form>
+      </article>
+      </div>
+      </div>
+      <!--to validate otp-->
+ 
+<div class="col-md-12 col-centered custom" [hidden]="!isOtpGenerated">      
+  <div>
+      <h3><Strong>Check your new email and enter the 6 digit otp.</Strong></h3>
+  </div>
+  <div class="form-group"> 
+      <input type="number" class="form-control" [(ngModel)]="otpNum" placeholder="Enter your otp" required> 
+  </div> 
+  
+
+  <div class="form-group"> 
+      <button type="submit" class="form-control btn btn-primary" [disabled]="isLoading" (click)="verifyEmail()">
+          <img src="../../assets/loadingSpinner.gif" *ngIf="isLoading" style="width: 24px;" alt="loadingSpinner.gif"/>
+          Verify</button>
+  </div> 
+
+      
+      

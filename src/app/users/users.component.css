@@ -1,0 +1,6 @@
+td::after{content: "\a"; white-space: pre;}
+
+#dropdown{
+
+    margin-left: 80px;
+}

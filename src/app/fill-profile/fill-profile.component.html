@@ -1,0 +1,52 @@
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+
+    <div class="col-md-5 border-right">
+      <div class="p-3 py-5">
+       
+        <div class="row mt-2">
+          <div class="col-md-12" [hidden]="admin"><label class="labels">Full Name</label><input type="text"
+              class="form-control" placeholder="Detail not provided" value="{{fullname}}" ></div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12" *ngIf="doctor"><label class="labels">Gender</label><input type="text"
+              class="form-control" placeholder="Detail not provided" value="{{gender}}"></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12"><label class="labels"> Username
+            </label><input type="text" class="form-control" placeholder="Detail not provided" value="{{username}}"
+              ></div>
+          <div class="col-md-12" id="profile" [hidden]="admin"><label class="labels"> Register Number </label><input
+              type="text" class="form-control" placeholder="Detail not provided" value="{{regNum}}" ></div>
+          <div class="col-md-12" id="profile" [hidden]="admin" *ngIf="hospital"><label class="labels"> PAN number
+            </label><input type="text" class="form-control" placeholder="Detail not provided" value="{{panNum}}"
+              ></div>
+          <div class="col-md-12" id="profile" [hidden]="admin" *ngIf="doctor"><label class="labels"> Specialist
+            </label><input type="text" class="form-control" placeholder="Detail not provided" value="{{specialist}}"
+              ></div>
+          <div class="col-md-12" id="profile"><label class="labels"> Email </label><input type="text"
+              class="form-control" placeholder="Detail not provided" value="{{email}}" ></div>
+         
+          <div class="col-md-12" id="profile" [hidden]="admin"><label class="labels">Mobile Number</label><input
+              type="text" class="form-control" placeholder="Detail not provided" value="{{contact}}" ></div>
+          <div class="col-md-12" id="profile" [hidden]="admin"><label class="labels"> Address:</label><input type="text"
+              class="form-control" placeholder="Detail not provided" value="{{address}}" ></div>
+
+          <div class="row mt-3" [hidden]="admin" *ngIf="hospital">
+            <div class="col-md-6"><label class="labels">City</label><input type="text" class="form-control"
+                placeholder="Detail not provided" value="{{city}}" ></div>
+            <div class="col-md-6"><label class="labels"> District </label><input type="text" class="form-control"
+                value="{{district}}" placeholder="Detail not provided" ></div>
+          </div>
+
+        </div>
+        <div class="mt-5 text-center">
+          <button type="button" class="btn btn-info" (click)="Fill()">Submit</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

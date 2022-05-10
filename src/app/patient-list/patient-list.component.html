@@ -1,0 +1,207 @@
+<!---------------------------------------This is for Doctor---------------------------------------------------------------->
+<input type="text" class="form-Control" name="searchBox" [(ngModel)]="searchResult" (ngModelChange)="search()"
+  placeholder="Enter to search">
+<!-- <div class="dropdown"> -->
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  filterBy
+  <span style="margin-left: 10px;"> {{value}} </span>
+</button>
+
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" routerLink="/patients1/all-patients">All Patients</a>
+  <a class="dropdown-item" routerLink="/patients2/active-patients">Active</a>
+  <a class="dropdown-item" routerLink="/patients3/inactive-patients">Death</a>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" (click)="sort('id')">#<i class="fa fa-sort"></i></th>
+      <th scope="col">Username </th>
+      <th scope="col"> Full Name </th>
+      <th scope="col"> Gender</th>
+      <th scope="col"> Contact Number </th>
+
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of userData | orderBy:key:reverse|  paginate: { itemsPerPage: 8 , currentPage: p }">
+
+      <td>{{patient.id}}</td>
+      <td>{{patient.username}}</td>
+      <td>{{patient.fullname}}</td>
+      <td>{{patient.gender}}</td>
+      <td>{{patient.contact}}</td>
+      <a   class="btn btn-primary"  [routerLink]="['/showReport', patient.username]"  style="margin-right: 5px;">  
+        <i class="fas fa-eye"></i>View Patient Report</a>
+
+      <td><Button class="btn btn-primary" (click)="findPatientByUsername(patient.username)" data-toggle="modal"
+          data-target="#patientView"><i class="fas fa-eye"></i>
+        </Button>&nbsp;
+        <Button class="btn btn-danger" *ngIf="!deleted" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+          [popoverMessage]="popoverMessage" placement="left" (confirm)="deletePatient(patient.id)"
+          (cancel)="cancelClicked = true"><i class="fa fa-trash"></i></Button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--Including the pagination control.-->
+<div class="text-right">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+<div class="modal fade" id="patientView" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+    <div class="modal-content">
+      <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+          <div class="col-md-3 border-right">
+            <div *ngIf="hasProfileImage" class="d-flex flex-column align-items-center text-center p-3 py-5">
+
+              <img class="rounded-circle mt-5" width="150px" [src]="retriveImage"><span> </span>
+            </div>
+            <div *ngIf="!hasProfileImage" class="d-flex flex-column align-items-center text-center p-3 py-5">
+              <img class="rounded-circle mt-5" width="150px" src="../assets/altprofile.png" alt="Profile Picture">
+              <span> </span>
+            </div>
+            <a data-toggle="modal" data-target="#addPatientFileModal"
+              style="cursor: pointer; text-decoration: none;"><button type="button" class="btn btn-primary btn-lg"><i
+                  class="fas fa-plus"></i>Add File/Report</button></a>
+          </div>
+          <div class="col-md-5 border-right" >
+            <div class="p-3 py-5">
+              <div class="row mt-2">
+
+                <div class="col-md-12" [hidden]="admin"><label class="labels">Full Name</label><input type="text"
+                    class="form-control" placeholder="Detail not provided" value="{{fullname}}" readonly></div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12"><label class="labels"> Username
+                  </label><input type="text" class="form-control" placeholder="Detail not provided" value="{{ptUsername}}"
+                    readonly></div>
+                <div class="col-md-12" id="profile"><label class="labels"> Gender </label><input type="text"
+                    class="form-control" placeholder="Detail not provided" value="{{gender}}" readonly></div>
+                <div class="col-md-12" id="profile"><label class="labels"> Contact Number</label><input type="text"
+                    class="form-control" placeholder="Detail not provided" value="{{contact}}" readonly></div>
+                    <div class="col-md-12" id="profile"><label class="labels"> Address</label><input type="text"
+                      class="form-control" placeholder="Detail not provided" value="{{address}}" readonly></div>
+                <div class="col-md-12" id="profile"><label class="labels"> Email </label><input type="text"
+                    class="form-control" placeholder="Detail not provided" value="{{email}}" readonly></div>
+                <div class="col-md-12" id="profile"><label class="labels">Blood group</label><input type="text"
+                    class="form-control" placeholder="Detail not provided" value="{{bloodG}}" readonly></div>
+                <div class="row mt-3" *ngIf="death">
+                  <div class="col-md-12" id="profile"><label class="labels">Death verified By:</label><input type="text"
+                    class="form-control" placeholder="Detail not provided" value="{{deathDeclaredBy}}" readonly></div>
+                </div>
+
+              </div>
+              <div class="mt-5 text-center">
+                <!-- <a routerLink="/updateProfile"> <button type="button" class="btn btn-info">Edit Profile</button>
+          </a> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="refresh()">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!--Modal for adding patient file-->
+  <div class="modal fade" id="addPatientFileModal" tabindex="-1" role="dialog" aria-labelledby="addPatientFileModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProfileModalLongTitle">Add new Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+
+          <div class="p-3 py-5">
+           
+      
+            <div class="input-group form-group" >
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="padding-right: 95px"><b>Patient Name:</b></span>
+              </div>
+              <input class="form-control" type="text" name="fullname" [(ngModel)]="fullname" readonly ><br>
+      
+            </div>
+      
+            <div class="input-group form-group" >
+              <div class="input-group-prepend">
+                <span class="input-group-text"  style="padding-right: 93px;"><b>Disease Name</b></span>
+              </div>
+              <input class="form-control" type="text" name="disease" [(ngModel)]="diseaseStatus" ><br>
+      
+            </div>
+
+            <div class="input-group form-group" >
+              <div class="input-group-prepend">
+                <span class="input-group-text"  style="padding-right: 93px;"><b>Description</b></span>
+              </div>
+              <input class="form-control" type="text" name="description" [(ngModel)]="description" ><br>
+      
+            </div>
+      
+            <div class="input-group form-group" >
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="padding-right: 105px;"><b>Body PArt: </b></span>
+              </div>
+              <input class="form-control" type="text" name="relatedBodyPart" [(ngModel)]="relatedBodyPart"><br>
+            
+            </div>
+            
+            <div class="input-group form-group" >
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="padding-right: 57px;"><b>Admitted Hospital :</b></span>
+              </div>
+              <input class="form-control" type="text" name="regNum" [(ngModel)]="treatmentIn"><br>
+      
+            </div>
+            <!-- <div class="input-group form-group"  >
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="padding-right: 105px;"><b>Reported By:</b></span>
+              </div>
+              <input class="form-control" type="text" name="contact" [(ngModel)]="fileUploadedByDr"><br>
+      
+            </div> -->
+          
+      
+          
+        </div>
+          <!-- Form start here -->
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
+            <div class="form-group">
+              <label for="inputProfilePicture">Profile Picture</label>
+              <input type="file" class="form-control" name="file" id="profile" (change)="selectFileHandler($event)"
+                required />
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button (click)="uploadPatientFile(ptId)" type="submit" class="btn btn-success">Add Detail</button>
+            </div>
+
+          </form>
+
+
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+</div>

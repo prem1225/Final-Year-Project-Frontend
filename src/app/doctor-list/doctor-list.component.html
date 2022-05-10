@@ -1,0 +1,63 @@
+<input type="text" class="form-Control" name="searchBox" [(ngModel)]="searchResult"(ngModelChange)="search()" placeholder="Enter to search">
+<a data-toggle="modal" data-target="#addDoctorModal" style="cursor: pointer; text-decoration: none;">
+  <button type="button" class="btn btn-success " style="margin-left: 1050px;"><i class="fas fa-plus"></i>Add
+    Doctor</button></a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">DoctorId</th>
+      <th>Full Name</th>
+      <th scope="col" > Username </th>
+      <th scope="col" > Contact Number </th>
+      <th scope="col" > Email </th>
+      <th scope="col" style="white-space: nowrap ;"> Specialist </th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of doctorsWorking | orderBy:key:reverse|  paginate: { itemsPerPage: 8 , currentPage: p }">
+
+      <td>{{user.id}}</td>
+      <td>{{user.fullname}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.contact}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.specialist}}</td>
+
+      <td>
+        <Button class="btn btn-danger" *ngIf="!deleted" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+          [popoverMessage]="popoverMessage" placement="left" (confirm)="RemoveDoctor(user.id)"
+          (cancel)="cancelClicked = true"><i class="fa fa-trash"></i></Button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="addDoctorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Doctor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user-md"></i></span>
+          </div>
+          <!-- <input class="form-control" type="text" name="username" placeholder="Enter Doctor id"
+          (ngModal)="drId"><br> -->
+          <input type="text" id="" name="doctorId" [(ngModel)]="doctorId" placeholder="Enter Doctor Id ">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addDoctor()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

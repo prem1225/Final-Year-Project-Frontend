@@ -1,0 +1,65 @@
+<!---------------------------------------This is for admin---------------------------------------------------------------->
+<input type="text" class="form-Control" name="searchBox" [(ngModel)]="searchResult" (ngModelChange)="search()" placeholder="Enter to search">
+<!-- <div class="dropdown"> -->
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    filterBy
+    <span style="margin-left: 10px;"> {{value}} </span>
+  </button>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" routerLink="/user1/all-user" >All Users</a>
+    <a class="dropdown-item" routerLink="/user2/active-user" >Active Users</a>
+    <a class="dropdown-item" routerLink="/user3/inactive-user" >Inactve Users</a>
+    <a class="dropdown-item" routerLink="/user4/unverified-user" >Unverifies Users</a>
+  </div>
+
+<table class="table table-striped" >
+    <thead>
+      <tr>
+        <th scope="col" (click)="sort('id')">#<i class="fa fa-sort"></i></th>
+        <th scope="col"(click)="sort('Username')"> Username <i class="fa fa-sort"></i></th>
+        <th scope="col"(click)="sort('Contact Number')"> Contact number <i class="fa fa-sort"></i></th>
+        <th scope="col"(click)="sort('Email')"> Email <i class="fa fa-sort"></i></th>
+        <th scope="col"(click)="sort('Role')" style="white-space: nowrap ;"> Role <i class= "fa fa-sort"></i></th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userData | orderBy:key:reverse|  paginate: { itemsPerPage: 8 , currentPage: p }">
+        
+        <td>{{user.userID}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.contact}}</td>
+        <td>{{user.email}}</td>
+        <td  > 
+         <li *ngFor="let role of user.roles" style="list-style: none;">  {{role.name}} </li>
+         
+        </td>
+        <td>
+        <Button class="btn btn-danger" *ngIf="!deleted"
+          mwlConfirmationPopover
+          [popoverTitle]="popoverTitle"
+          [popoverMessage]="popoverMessage"
+          placement="left"
+          (confirm)="deleteUser(user.userID)"
+          (cancel)="cancelClicked = true"><i class="fa fa-trash"></i></Button> </td>
+      </tr>
+        </tbody>
+  </table>
+
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--Including the pagination control.-->
+   <div class="text-right">
+    <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+  </div>

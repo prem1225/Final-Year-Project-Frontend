@@ -1,0 +1,18 @@
+<div *ngFor="let dashboard of finalmsg">
+    <table class="table">
+    <tr>
+        <th> Published Date :  {{dashboard.postedDate}} </th>
+       <th *ngIf="show"> <button   class="btn btn-danger"
+        mwlConfirmationPopover
+        [popoverTitle]="popoverTitle"
+        [popoverMessage]="popoverMessage"
+        placement="left"
+        (confirm)="deletePost(dashboard.id)"
+        (cancel)="cancelClicked = true"><i class="fa fa-trash"></i></button> </th>
+    </tr>
+    <tr>
+        <td style="height:300px;">{{dashboard.message}}</td>
+    </tr> 
+    </table>
+    <td>===================================================================================================================================================================</td> 
+    </div>

@@ -1,0 +1,123 @@
+<div id="background_image" style="background-image:url(../assets/bg-hospital.jpg) ">
+  <div class="d-flex justify-content-center h-100" id="addProfilediv">
+    <div class="p-3 py-5">
+      <!-- <div class="row mt-2" [hidden]="admin"> -->
+
+      <div class="input-group form-group" [hidden]="admin">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 95px"><b>Full Name:</b></span>
+        </div>
+        <input class="form-control" type="text" name="fullname" [(ngModel)]="fullname" ><br>
+
+      </div>
+
+      <div class="input-group form-group" [hidden]="admin">
+        <div class="input-group-prepend">
+          <span class="input-group-text"  style="padding-right: 93px;"><b>Username :</b></span>
+        </div>
+        <input class="form-control" type="text" name="username" [(ngModel)]="username" readonly><br>
+
+      </div>
+
+      <div class="input-group form-group" >
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 105px;"><b>Email Address :</b></span>
+        </div>
+        <input class="form-control" type="text" name="email" [(ngModel)]="email"><br>
+       <a routerLink="/changeMail"><button type="button" class="btn btn-info">Change</button></a>
+      </div>
+      
+      <div class="input-group form-group" *ngIf="doctor">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 57px;"><b>Gender :</b></span>
+        </div>
+        <input class="form-control" type="text" name="regNum" [(ngModel)]="gender"><br>
+
+      </div>
+      <div class="input-group form-group" [hidden]="admin">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 57px;"><b>Register Number :</b></span>
+        </div>
+        <input class="form-control" type="text" name="regNum" [(ngModel)]="regNum"><br>
+
+      </div>
+  
+
+      <div class="input-group form-group" [hidden]="admin" *ngIf="hospital">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 80px;"><b>PAN Number :</b></span>
+        </div>
+        <input class="form-control" type="text" name="panNum" [(ngModel)]="panNum"><br>
+
+      </div>
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 01px;"><b>Contact Number
+            (Primary) :</b></span> 
+            
+        </div>
+        <input class="form-control" type="text" name="contactNumP" [(ngModel)]="contactNumP" readonly><br>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#phoneModal">Change</button>
+      </div>
+
+      <div class="input-group form-group" [hidden]="admin">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 55px;"><b>Contact Number :</b></span>
+        </div>
+        <input class="form-control" type="text" name="contact" [(ngModel)]="mobileNum"><br>
+
+      </div>
+
+      <div class="input-group form-group" [hidden]="admin" *ngIf="hospital">
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="padding-right: 105px;"><b>Address :</b></span>
+        </div>
+        <input class="form-control" type="text" name="contact" [(ngModel)]="address"><br>
+
+      </div>
+      <div class="row mt-3" [hidden]="admin" *ngIf="hospital">
+        <div class="col-md-6"><label class="labels">City</label><input type="text" class="form-control"
+            placeholder="Detail not provided" [(ngModel)]="city"></div>
+        <div class="col-md-6"><label class="labels"> District </label><input type="text" class="form-control"
+            [(ngModel)]="district" placeholder="Detail not provided"></div>
+      </div>
+
+    
+    <div class="mt-5 text-center" [hidden]="admin">
+      <span style="margin-right: 40px;">
+      <button type="button" class="btn btn-success btn-lg" (click)="Update()" >Update</button>
+      </span>
+      <span style="margin-left:  40px;">
+        <button type="button" class="btn btn-danger bt-lg" (click)="Cancle()">Cancle</button>
+        </span>
+    </div>
+  </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Mobile Number</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="padding-right: 55px;"><b>Contact Number :</b></span>
+          </div>
+          <input class="form-control" type="text" name="contact" [(ngModel)]="contactNumP"><br>
+  
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="UpdateContact()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

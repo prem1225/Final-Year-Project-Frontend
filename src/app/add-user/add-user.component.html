@@ -1,0 +1,62 @@
+
+<!-- d-flex justify-content-center h-100" -->
+<div id="background_image" style="background-image:url(../assets/bg-hospital.jpg) ">
+<div class="d-flex justify-content-center h-100" id="addUserdiv">
+<article class="card-body mx-auto" style="max-width: 500px;">
+	<h4 class="card-title mt-3 text-center" style="font-weight:bolder; ">Add user</h4>
+	<form>
+	<div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+        <input name="usernmae" class="form-control" placeholder="Username" type="text" [(ngModel)]="username" >
+    </div> <!-- form-group// -->
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+		 </div>
+        <input name="email" class="form-control" placeholder="Email address" type="email" [(ngModel)]="email">
+    </div> <!-- form-group// -->
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+    	<input name="contact" class="form-control" placeholder="Phone number" type="text" [(ngModel)]="contact">
+    </div> 
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+        <input name="password" class="form-control" placeholder="Create password" type="password" [(ngModel)]="password">
+    </div> <!-- form-group// -->
+    <!-- <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+        <input class="form-control" placeholder="Repeat password" type="password">
+    </div> -->
+	<div class="form-group input-group">
+    	<div class="input-group-prepend">
+		   <span class="input-group-text"><i class="fas fa-users-cog"></i></span>			
+		
+		   <div class="form-group">
+			
+		<input type="checkbox" (change)="selectChange($event)" class="checkbox"  value="Admin"  *ngIf="admin" >
+		<label id="label" *ngIf="admin"><h4><b>Admin</b></h4></label>
+		<input type="checkbox" class="checkbox" (change)="selectChange($event)"  value="Hospital"  *ngIf="admin">
+		<label  *ngIf="admin"><h4><b>Hospital</b></h4></label>
+		<input type="checkbox" class="checkbox" (change)="selectChange($event)"  value="Doctor" *ngIf="(admin)||(hospital)">
+		<label *ngIf="(admin)||(hospital)" ><h4><b>Doctor</b></h4></label>
+		<input type="checkbox"  class="checkbox" (change)="selectChange($event)" value="Patient">
+		<label><h4><b>Patient</b></h4></label>
+	
+	</div>
+		</div>
+    </div>  <!-- form-group// -->                                      
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" (click)="addUser()"> Create Account  </button>
+    </div> <!-- form-group// -->                                                                       
+</form>
+</article>
+</div>
+</div>

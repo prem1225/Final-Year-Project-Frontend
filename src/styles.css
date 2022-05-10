@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.footer {
+    bottom: 0;
+    padding: 19px 15px 20px;
+    position: absolute;
+    color:  black;
+    left: 10px;
+    right: 10px;
+    bottom: 20px;
+    background-color: #5f998c;
+    box-shadow: 0 0 1px rgba(41, 75, 126, 0.1);
+ 
+    
+}
